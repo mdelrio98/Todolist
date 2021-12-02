@@ -3,11 +3,11 @@
         <div class="col-lg-6 offset-lg-3">
             <div class="card">
                 <div class="card-body text-center">
-                    <span class="titulo"> {{ titulo | uppercase }}</span>
-                    <form class="mt-3" [formGroup]="taskForm" (ngSubmit)="agregartask()">
+                    <h2> {{titulo}} {{id}}</h2>
+                    <form class="mt-3" [formGroup]="taskForm" (ngSubmit)="editarTask()">
                         <div class="mb-3">
                             <input type="text" formControlName="task" class="form-control form-control-lg"
-                                placeholder="task">
+                                placeholder="Nombre">
                             <div class="text-danger"
                                 *ngIf="taskForm.get('task')?.hasError('required') && taskForm.get('task')?.touched">
                                 <span>El nombre de la task <strong>es obligatorio</strong></span>
@@ -15,15 +15,15 @@
                         </div>
                         <div class="mb-3">
                             <input type="text" formControlName="descripcion" class="form-control form-control-lg"
-                                placeholder="descripcion">
+                                placeholder="Descripcion">
                             <div class="text-danger"
                                 *ngIf="taskForm.get('descripcion')?.hasError('required') && taskForm.get('descripcion')?.touched">
                                 <span>La descripcion <strong>es obligatoria</strong></span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <button routerLink="/" class="btn btn-secondary btn-lg float-start">VOLVER</button>
-                            <button type="submit" [disabled]="taskForm.invalid" class="btn btn-success btn-lg float-end">ACEPTAR</button>
+                        <div class="mb-3">                            
+                            <button type="submit" [disabled]="taskForm.invalid" class="btn btn-success btn-lg float-end" rou>Save</button>
+                            <button routerLink="/" class="btn btn-secondary btn-lg float-start">Cancel</button>
                         </div>
                     </form>
                 </div>

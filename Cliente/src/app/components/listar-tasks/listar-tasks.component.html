@@ -3,11 +3,11 @@
         <div class="col-lg-8 offset-lg-2">
             <div class="card">
                 <div class="card-body text-center">
-                    <span class="titulo">LISTADO DE TAREAS</span>
-                    <button class="btn btn-success float-end" routerLink="/crear-task">NUEVO</button>
+                    <h2>Listado de Tareas</h2>
                     <table *ngIf="listTasks.length > 0" class="table table-striped mt-3">
                         <thead>
                           <tr>
+                            <th scope="col"></th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col"></th>
@@ -15,14 +15,21 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let task of listTasks">
+                            <td><input type="checkbox"></td>
                             <td>{{ task.nombre }}</td>
                             <td>{{ task.descripcion }}</td>
-                            <button class="btn " routerLink="/editar-task/">Edit</button>
-                            <button class="btn danger" routerLink="/eliminar-task">Delete</button>
+                            <td>
+                              <button type="button" class="btn btn-primary btn_r" [routerLink]="['editar-task/',task.id]">Edit</button>
+                              <button type="button" class="btn btn-danger" (click)='eliminarTask(task)'>Delete</button>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
                       <h5 style="text-align: start; margin-top: 10px;" *ngIf="listTasks.length == 0">No hay tasks para mostrar</h5>
+                </div>
+                <div class="card-body text-center">
+                  <input class="btn_r" type="text" value="New task" name="create-task" [(ngModel)]="task.nombre">
+                  <button class="btn btn-success" role="button" (click)='crearTask()' >Create</button>
                 </div>
             </div>
         </div>

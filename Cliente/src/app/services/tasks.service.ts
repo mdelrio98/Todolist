@@ -11,18 +11,23 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerTasks(): Observable<any> {
-    return this.http.get(this.url);
+  obtenerTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.url);
   }
 
-  eliminarTask(id: string): Observable<any> {
+  eliminarTask(id: any): Observable<any> {
     return this.http.delete(this.url + id);
+  }
+
+  crearTask(task: Task): Observable<any> {
+    return this.http.post(this.url, task);
   }
 
   guardarTask(task: Task): Observable<any> {
-    return this.http.post(this.url, task);
+    return this.http.put(this.url, task);
   }
-  obtenerTask(id: string): Observable<any> {
-    return this.http.delete(this.url + id);
+
+  obtenerTask(id: any): Observable<any> {
+    return this.http.get(this.url + "/" + id);
   }
 }

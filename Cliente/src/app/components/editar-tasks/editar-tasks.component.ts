@@ -6,13 +6,14 @@ import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/tasks.service';
 
 @Component({
-  selector: 'app-crear-task',
-  templateUrl: './crear-task.component.html',
-  styleUrls: ['./crear-task.component.css']
+  selector: 'app-editar-tasks',
+  templateUrl: './editar-tasks.component.html',
+  styleUrls: ['./editar-tasks.component.css']
 })
-export class CreartaskComponent implements OnInit {
+export class EditarTasksComponent implements OnInit {
+
   taskForm: FormGroup;
-  titulo = 'Crear task';
+  titulo = 'Editar task';
   id: string | null;
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -27,39 +28,20 @@ export class CreartaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.esEditar();
+    this.editarTask();
   }
 
-  agregartask() {
 
-    const task: Task = {
-      nombre: this.taskForm.get('task')?.value,
-      descripcion: this.taskForm.get('descripcion')?.value,
-    }
-
-    console.log(task);
-    this._taskService.guardarTask(task).subscribe(data => {
-      this.toastr.success('La task fue registrado con exito!', 'task Registrada!');
-      this.router.navigate(['/']);
-    }, error => {
-      console.log(error);
-      this.taskForm.reset();
-    })
-
-  
-  }
-
-  esEditar() {
+  editarTask():void{
 
     if(this.id !== null) {
       this.titulo = 'Editar task';
       this._taskService.obtenerTask(this.id).subscribe(data => {
         this.taskForm.setValue({
           task: data.nombre,
-          categoria: data.categoria,
+          descripcion: data.descripcion,
         })
       })
     }
   }
-
 }
